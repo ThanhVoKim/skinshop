@@ -1,72 +1,150 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap'
-import SearchBox from './SearchBox'
-import { logout } from '../actions/userActions'
+import React, { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { logout } from '../actions/userActions';
 
-const Header = () => {
-  const dispatch = useDispatch()
+const Header = ({ setBodyMenu }) => {
+  const location = useLocation();
+  const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const [openMenuin, setOpenMenuin] = useState(false);
+  const [sticky, setSticky] = useState(false);
+  const Header = useRef(null);
+
+  const regex = /(?<=^\/)[a-z]{1,}/i;
+  const matchNav = location.pathname.match(regex);
+  const currentNav = matchNav && matchNav[0];
+  const classNav = 'current-menu-item';
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  useEffect(() => {
+    //Header.current.scrollIntoView
+    function scrollStickyHandler() {
+      if (this.scrollY > Header.current.clientHeight + 20) {
+        !sticky && setSticky(true);
+      } else {
+        sticky && setSticky(false);
+      }
+    }
+    window.addEventListener('scroll', scrollStickyHandler);
+  }, [userInfo, cartItems, sticky]);
+
+  const openMenuinHandler = () => {
+    setOpenMenuin(!openMenuin);
+    setBodyMenu(!openMenuin);
+  };
 
   const logoutHandler = () => {
-    dispatch(logout())
-  }
+    dispatch(logout());
+  };
 
   return (
-    <header>
-      <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
-        <Container>
-          <LinkContainer to='/'>
-            <Navbar.Brand>ProShop</Navbar.Brand>
-          </LinkContainer>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
-          <Navbar.Collapse id='basic-navbar-nav'>
-            <Route render={({ history }) => <SearchBox history={history} />} />
-            <Nav className='ml-auto'>
-              <LinkContainer to='/cart'>
-                <Nav.Link>
-                  <i className='fas fa-shopping-cart'></i> Cart
-                </Nav.Link>
-              </LinkContainer>
-              {userInfo ? (
-                <NavDropdown title={userInfo.name} id='username'>
-                  <LinkContainer to='/profile'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : (
-                <LinkContainer to='/login'>
-                  <Nav.Link>
-                    <i className='fas fa-user'></i> Sign In
-                  </Nav.Link>
-                </LinkContainer>
+    <header id='header' ref={Header} className={sticky ? 'sticky' : ''}>
+      <div className='hd-wrap'>
+        <div className='all'>
+          <div className='logo'>
+            <div className='img'>
+              <Link to='/'>
+                <img src='/images/header-logo.jpg' alt='' />
+              </Link>
+            </div>
+          </div>
+          <div className='hd-right'>
+            <div className='hdr__left'>
+              <div
+                className={`navbar-toggle ${openMenuin && 'open'}`}
+                onClick={openMenuinHandler}
+              >
+                <span className='icon-bar'></span>
+                <span className='icon-bar'></span>
+                <span className='icon-bar'></span>
+              </div>
+              <div className='nav-wrap'>
+                <div className='nav-overlay' onClick={openMenuinHandler}></div>
+                <ul className='nav-ul'>
+                  <li
+                    className={
+                      currentNav === 'products'
+                        ? `${classNav} nav-li`
+                        : 'nav-li'
+                    }
+                  >
+                    <Link to='/products'>Products</Link>
+                  </li>
+                  <li
+                    className={
+                      currentNav === 'aboutus' ? `${classNav} nav-li` : 'nav-li'
+                    }
+                  >
+                    <Link to='/aboutus'>About us</Link>
+                  </li>
+                  <li
+                    className={
+                      currentNav === 'news' ? `${classNav} nav-li` : 'nav-li'
+                    }
+                  >
+                    <Link to='/news'>News</Link>
+                  </li>
+                  <li
+                    className={
+                      currentNav === 'member' ? `${classNav} nav-li` : 'nav-li'
+                    }
+                  >
+                    <Link to='/member'>Member</Link>
+                  </li>
+                  <li
+                    className={
+                      currentNav === 'contact' ? `${classNav} nav-li` : 'nav-li'
+                    }
+                  >
+                    <Link to='/contact'>Contact</Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className='hdr__side'>
+              {userInfo && userInfo.name && (
+                <div
+                  style={{ display: 'inline-block', verticalAlign: 'middle' }}
+                >
+                  <div className='dropdown nav-li'>
+                    <span className='link'>
+                      {userInfo.name} <i className='fa fa-chevron-down'></i>
+                    </span>
+                    <ul className='sub-menu'>
+                      <li>
+                        <Link to='/profile'>Profile </Link>
+                      </li>
+                      <li>
+                        <button
+                          type='button'
+                          className='link'
+                          onClick={logoutHandler}
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               )}
-              {userInfo && userInfo.isAdmin && (
-                <NavDropdown title='Admin' id='adminmenu'>
-                  <LinkContainer to='/admin/userlist'>
-                    <NavDropdown.Item>Users</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to='/admin/productlist'>
-                    <NavDropdown.Item>Products</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to='/admin/orderlist'>
-                    <NavDropdown.Item>Orders</NavDropdown.Item>
-                  </LinkContainer>
-                </NavDropdown>
-              )}
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+              <Link to='/cart' className='btn-icon i-circle btn-cart'>
+                <i className='fa fa-shopping-cart' aria-hidden='true'></i>
+                {cartItems && cartItems.length > 0 && (
+                  <small className='num-cart'>{cartItems.length}</small>
+                )}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

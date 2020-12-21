@@ -1,21 +1,13 @@
-import React from 'react'
-import { Spinner } from 'react-bootstrap'
+import React from 'react';
 
 const Loader = () => {
   return (
-    <Spinner
-      animation='border'
-      role='status'
-      style={{
-        width: '100px',
-        height: '100px',
-        margin: 'auto',
-        display: 'block',
-      }}
-    >
-      <span className='sr-only'>Loading...</span>
-    </Spinner>
-  )
-}
+    <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+      <div className='spinner-border' role='status'>
+        <span className='sr-only'>Loading...</span>
+      </div>
+    </div>
+  );
+};
 
-export default Loader
+export default Loader;

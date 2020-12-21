@@ -1,66 +1,58 @@
-import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { Container } from 'react-bootstrap'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import HomeScreen from './screens/HomeScreen'
-import ProductScreen from './screens/ProductScreen'
-import CartScreen from './screens/CartScreen'
-import LoginScreen from './screens/LoginScreen'
-import RegisterScreen from './screens/RegisterScreen'
-import ProfileScreen from './screens/ProfileScreen'
-import ShippingScreen from './screens/ShippingScreen'
-import PaymentScreen from './screens/PaymentScreen'
-import PlaceOrderScreen from './screens/PlaceOrderScreen'
-import OrderScreen from './screens/OrderScreen'
-import UserListScreen from './screens/UserListScreen'
-import UserEditScreen from './screens/UserEditScreen'
-import ProductListScreen from './screens/ProductListScreen'
-import ProductEditScreen from './screens/ProductEditScreen'
-import OrderListScreen from './screens/OrderListScreen'
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import AuthHOC from './components/AuthHOC';
+import HomeScreen from './screens/HomeScreen';
+import MemberScreen from './screens/MemberScreen';
+import NewsScreen from './screens/NewsScreen';
+import NewsDetailsScreen from './screens/NewsDetailsScreen';
+import AboutScreen from './screens/AboutScreen';
+import ContactScreen from './screens/ContactScreen';
+import ProductListScreen from './screens/ProductListScreen';
+import ProductDetailsScreen from './screens/ProductDetailsScreen';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import CartScreen from './screens/CartScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import ThanksScreen from './screens/ThanksScreen';
+import ShippingScreen from './screens/ShippingScreen';
+import FixedComponent from './components/FixedComponent';
+import NotFound from './screens/NotFound';
 
 const App = () => {
+  const [bodyMenu, setBodyMenu] = useState(false);
   return (
     <Router>
-      <Header />
-      <main className='py-3'>
-        <Container>
-          <Route path='/order/:id' component={OrderScreen} />
-          <Route path='/shipping' component={ShippingScreen} />
-          <Route path='/payment' component={PaymentScreen} />
-          <Route path='/placeorder' component={PlaceOrderScreen} />
-          <Route path='/login' component={LoginScreen} />
-          <Route path='/register' component={RegisterScreen} />
-          <Route path='/profile' component={ProfileScreen} />
-          <Route path='/product/:id' component={ProductScreen} />
-          <Route path='/cart/:id?' component={CartScreen} />
-          <Route path='/admin/userlist' component={UserListScreen} />
-          <Route path='/admin/user/:id/edit' component={UserEditScreen} />
-          <Route
-            path='/admin/productlist'
-            component={ProductListScreen}
-            exact
-          />
-          <Route
-            path='/admin/productlist/:pageNumber'
-            component={ProductListScreen}
-            exact
-          />
-          <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
-          <Route path='/admin/orderlist' component={OrderListScreen} />
-          <Route path='/search/:keyword' component={HomeScreen} exact />
-          <Route path='/page/:pageNumber' component={HomeScreen} exact />
-          <Route
-            path='/search/:keyword/page/:pageNumber'
-            component={HomeScreen}
-            exact
-          />
-          <Route path='/' component={HomeScreen} exact />
-        </Container>
-      </main>
-      <Footer />
+      <div id='body' className={bodyMenu ? 'menuin' : ''}>
+        <Header setBodyMenu={setBodyMenu} />
+        <main>
+          <Switch>
+            <Route path='/' component={HomeScreen} exact />
+            <Route path='/member' component={MemberScreen} exact />
+            <Route path='/aboutus' component={AboutScreen} exact />
+            <Route path='/contact' component={ContactScreen} exact />
+            <Route path='/login' component={LoginScreen} exact />
+            <Route path='/register' component={RegisterScreen} exact />
+            <Route path='/products' component={ProductListScreen} exact />
+            <Route path='/cart' component={CartScreen} exact />
+            <AuthHOC path='/shipping' component={ShippingScreen} exact />
+            <AuthHOC path='/thanks' component={ThanksScreen} exact />
+            <Route
+              path='/products/:id'
+              component={ProductDetailsScreen}
+              exact
+            />
+            <Route path='/news' component={NewsScreen} exact />
+            <Route path='/news/:id' component={NewsDetailsScreen} exact />
+            <Route component={NotFound} />
+          </Switch>
+        </main>
+        <FixedComponent />
+        <Footer />
+      </div>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;

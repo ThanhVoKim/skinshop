@@ -1,0 +1,125 @@
+.ft-contact-info {
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+  .icon {
+    float: left;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #fff;
+    color: $color1;
+  }
+
+  .ct {
+    display: block;
+    overflow: hidden;
+    padding-left: 10px;
+    line-height: 1.2;
+
+    a:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.ft-media {
+  margin-left: -10px;
+  .ft-media-btn {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 10px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 4px;
+
+    &:hover {
+      background-color: white;
+      color: $color1;
+    }
+  }
+}
+
+.ft-form {
+  .form__child:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  .f-control {
+    border-radius: unset;
+    background-color: #f8f8f8;
+  }
+
+  .mn-btn {
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+  }
+}
+
+.footer__logo {
+  font-size: 46px;
+  color: white;
+}
+
+#footer {
+  .ft-infos {
+    background-color: #111111;
+    color: #c2c2c2;
+  }
+
+  .foot-title {
+    margin-bottom: 20px;
+    color: white;
+    .hd {
+      font-family: $font-h;
+      font-size: 18px;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+  }
+
+  .ft-infos-wrap {
+    @extend %clear;
+    margin: 0 -15px -30px;
+  }
+
+  .ft-intro {
+    margin-bottom: 10px;
+  }
+
+  .ft-infos__child {
+    float: left;
+    width: 33.33%;
+    padding: 0 15px;
+    margin-bottom: 30px;
+    @include br(930px) {
+      width: 50%;
+    }
+    @include br(550px) {
+      width: 100%;
+      float: none;
+    }
+  }
+
+  .footer-logo {
+    margin-bottom: 15px;
+  }
+
+  .ft-sys {
+    line-height: 20px;
+    background-color: #0f0f0f;
+    color: #707070;
+    padding: 10px 0;
+    font-weight: 500;
+    a img {
+      display: initial;
+    }
+
+    strong {
+      font-weight: 500;
+    }
+  }
+}

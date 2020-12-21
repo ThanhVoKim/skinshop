@@ -1,0 +1,393 @@
+@charset "utf-8";
+//
+//VARIABLE :: BEGIN
+//
+$main-w: 960;
+$sp-w: 700;
+
+$color1: #111111;
+$color2: #707070;
+$color3: #e92c2b;
+
+$nav-item: $color1;
+$nav-bg__hover: #303030;
+$nav-item__hover: white;
+$drop-bg: white;
+$drop-item-bg__hover: #303030;
+$drop-item__hover: white;
+$icon-bar: $color1;
+
+$tog-header-bg: white;
+$tog-nav-item: $color1;
+$tog-nav-bg__hover: $color1;
+$tog-nav-item__hover: white;
+$tog-drop-item-bg__hover: #e1e1e1;
+$tog-drop-item__hover: #303030;
+
+$current-menu-item-bg: transparent;
+$current-menu-item: $color3;
+$currdrop-menu-item-bg: transparent;
+$currdrop-menu-item: $color3;
+
+$primary-txt-color: #898989;
+$text-cl2: #ebebeb;
+
+$font-p: 'Helvetica Neue', sans-serif;
+$font-h: 'Oswald', sans-serif;
+
+//
+//VARIABLE :: END
+//
+
+.glareEffect {
+  .img {
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    &::after {
+      content: '';
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background-image: linear-gradient(
+        to right,
+        transparent 25%,
+        rgba(white, 50%),
+        transparent
+      );
+      pointer-events: none;
+      transform: scale(2) rotate(45deg);
+      transition: all 0.3s ease-in-out;
+    }
+    &:hover {
+      &::after {
+        left: 50%;
+        top: 50%;
+      }
+    }
+  }
+}
+
+//
+//MIXIN :: BEGIN
+//
+
+@mixin fz72() {
+  font-size: 72px;
+
+  @include br(930px) {
+    font-size: 60px;
+  }
+
+  @include br(500px) {
+    font-size: 48px;
+  }
+}
+
+@mixin fz48() {
+  font-size: 48px;
+
+  @include br(930px) {
+    font-size: 36px;
+  }
+
+  @include br(500px) {
+    font-size: 30px;
+  }
+}
+
+@mixin fz36() {
+  font-size: 36px;
+  @include br(930px) {
+    font-size: 30px;
+  }
+  @include br(500px) {
+    font-size: 27px;
+  }
+}
+
+@mixin fz30() {
+  font-size: 30px;
+  @include br(930px) {
+    font-size: 26px;
+  }
+  @include br(500px) {
+    font-size: 24px;
+  }
+}
+
+@mixin fz24() {
+  font-size: 24px;
+  @include br(500px) {
+    font-size: 19px;
+  }
+}
+
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow: $shadow; // iOS <4.3 & Android <4.1
+  box-shadow: $shadow;
+}
+@mixin coverbg() {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+@mixin transition($s) {
+  -webkit-transition: all $s ease-in-out;
+  -moz-transition: all $s ease-in-out;
+  -o-transition: all $s ease-in-out;
+  -ms-transition: all $s ease-in-out;
+  transition: all $s ease-in-out;
+}
+
+@mixin btn-color($color) {
+  background-color: $color;
+  color: white;
+  &:hover {
+    color: white;
+    background-color: darken($color, 10%);
+  }
+}
+
+@mixin spflex($jc: center, $al: center) {
+  @supports (display: flex) {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: $jc;
+    align-items: $al;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+}
+
+@mixin scrollbar() {
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform: translateZ(0);
+  &::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+  &::-webkit-scrollbar-button:end:increment,
+  &::-webkit-scrollbar-button:start:decrement {
+    background: transparent;
+    display: none;
+  }
+  &::-webkit-scrollbar-track-piece {
+    background: #414141;
+  }
+  &::-webkit-scrollbar-track-piece:vertical:start {
+    border-radius: 4px 4px 0 0;
+  }
+  &::-webkit-scrollbar-track-piece:vertical:end {
+    border-radius: 0 0 4px 4px;
+  }
+  &::-webkit-scrollbar-track-piece:horizontal:start {
+    border-radius: 4px 0 0 4px;
+  }
+  &::-webkit-scrollbar-track-piece:horizontal:end {
+    border-radius: 0 4px 4px 0;
+  }
+  &::-webkit-scrollbar-thumb:horizontal,
+  &::-webkit-scrollbar-thumb:vertical {
+    background: darken($color1, $amount: 10%);
+    border-radius: 4px;
+    display: block;
+    height: auto;
+  }
+
+  // &::-webkit-scrollbar-button {
+  //   display: block;
+  //   height: 16px;
+  //   width: 16px;
+  // }
+}
+
+.slider-css {
+  list-style: none;
+
+  &.slick-slider {
+    margin-bottom: unset;
+  }
+
+  .slick-dots {
+    bottom: 15px;
+  }
+
+  .slick-dots li {
+    width: auto;
+    height: auto;
+    margin: 0 5px;
+  }
+
+  .slick-dots li.slick-active button {
+    background-color: $color1;
+  }
+
+  .slick-dots button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+    padding: 0;
+
+    &:hover {
+      background-color: $color2;
+    }
+  }
+
+  .slick-dots button::before {
+    content: none;
+  }
+
+  .slick-slide {
+    outline: none;
+    > div {
+      outline: none;
+      line-height: 0;
+    }
+  }
+
+  .banner-slider-item {
+    outline: none;
+    // -webkit-user-drag: none;
+  }
+
+  .slick-prev {
+    // left: calc(50vw - (#{$main-w}px/2));
+    left: 0;
+  }
+
+  .slick-next {
+    // right: calc(50vw - (#{$main-w}px/2));
+    right: 0;
+  }
+
+  .slick-prev,
+  .slick-next {
+    z-index: 1;
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+    //border-radius: 50%;
+    //background-color: rgba($color1, .2);
+    color: white;
+    background-color: rgba($color: #000000, $alpha: 0.4);
+    font-size: 14px;
+
+    &:disabled {
+      background-color: rgba($color1, 0.1);
+      pointer-events: none;
+    }
+    i {
+      font-size: inherit;
+      line-height: inherit;
+    }
+
+    &::before {
+      content: none;
+    }
+
+    &:hover {
+      color: white;
+      background-color: $color1;
+    }
+  }
+}
+
+@mixin fluid-type($properties, $min-vw, $max-vw, $min-value, $max-value) {
+  @each $property in $properties {
+    #{$property}: $min-value;
+  }
+
+  @media screen and (min-width: $min-vw) {
+    @each $property in $properties {
+      $value-prop: null;
+      @for $i from 1 through length($min-value) {
+        @if (
+          strip-unit(nth($min-value, $i)) ==
+            0 and
+            strip-unit(nth($max-value, $i)) ==
+            0
+        ) {
+          $value-prop: append($value-prop, 0);
+        } @else if (unit(nth($min-value, $i)) == 'rem') {
+          $value: calc(
+            #{nth($min-value, $i)} +
+              #{strip-unit(nth($max-value, $i) - nth($min-value, $i)) *
+              10} *
+              (100vw - #{$min-vw}) /
+              #{strip-unit($max-vw - $min-vw)}
+          );
+          $value-prop: append($value-prop, $value);
+        } @else {
+          $value: calc(
+            #{nth($min-value, $i)} +
+              #{strip-unit(nth($max-value, $i) - nth($min-value, $i))} *
+              (100vw - #{$min-vw}) /
+              #{strip-unit($max-vw - $min-vw)}
+          );
+          $value-prop: append($value-prop, $value);
+        }
+      }
+      #{$property}: $value-prop;
+    }
+  }
+
+  @media screen and (min-width: $max-vw) {
+    @each $property in $properties {
+      #{$property}: $max-value;
+    }
+  }
+}
+
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+@mixin br($point) {
+  @media screen and (max-width: $point) {
+    @content;
+  }
+}
+
+//
+//MIXIN :: END
+//
+
+//media template
+// @include media(1199px){
+//    width: 970px;
+//}
+//@include media(1199px){
+//    width: 970px;
+//}
+//@include media(991px){
+//    width: 750px;
+//}
+//@include media(767px){
+//    width: 100%;
+//}
+
+%clear {
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+  &:before {
+    display: table;
+    content: ' ';
+  }
+}
