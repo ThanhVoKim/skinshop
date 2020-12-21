@@ -43,7 +43,6 @@ const ProductDetailsScreen = ({ match }) => {
 
   const addCartHandler = () => {
     dispatch(addToCart(productId, numQty));
-    setNumQty(1);
   };
 
   const buyHandler = () => {

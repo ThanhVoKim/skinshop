@@ -533,6 +533,8 @@
 .childpage-head {
   //background-image: url('/images/childpage-head-bg.jpg');
   @include coverbg();
+  z-index: 0;
+  position: relative;
   padding: 50px 0;
   text-align: center;
 }
@@ -1460,5 +1462,63 @@
 
   .sub {
     font-size: 48px;
+  }
+}
+
+/* Aside Cart */
+.aside-cart {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba($color: white, $alpha: 0.5);
+  animation: closeAsideMenu 0.3s ease-in both;
+  z-index: -9;
+  visibility: hidden;
+  opacity: 0;
+  transition: ease-in-out 0.3s all;
+  .aside-wrap {
+    position: relative;
+    width: 320px;
+    margin-left: auto;
+    height: 100%;
+    background-color: white;
+    overflow-y: auto;
+    border-left: 1px solid rgba(black, 0.1);
+    transition: ease-in-out 0.3s all;
+    transform: translate(100%, 0);
+  }
+
+  .orderSummary {
+    background-color: white;
+  }
+
+  .mn-btn {
+    min-width: auto;
+    padding: 0 30px;
+  }
+
+  .asideClose {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    padding: 3px;
+
+    &:hover {
+      color: $color3;
+    }
+  }
+
+  &.show {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    z-index: 9;
+    .aside-wrap {
+      transform: translate(0, 0);
+    }
   }
 }

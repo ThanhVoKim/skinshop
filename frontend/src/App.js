@@ -19,13 +19,15 @@ import ThanksScreen from './screens/ThanksScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import FixedComponent from './components/FixedComponent';
 import NotFound from './screens/NotFound';
+import CartAside from './components/CartAside';
 
 const App = () => {
   const [bodyMenu, setBodyMenu] = useState(false);
+  const [asideCart, setAsideCart] = useState(false);
   return (
     <Router>
       <div id='body' className={bodyMenu ? 'menuin' : ''}>
-        <Header setBodyMenu={setBodyMenu} />
+        <Header setBodyMenu={setBodyMenu} setAsideCart={setAsideCart} />
         <main>
           <Switch>
             <Route path='/' component={HomeScreen} exact />
@@ -48,6 +50,7 @@ const App = () => {
             <Route component={NotFound} />
           </Switch>
         </main>
+        <CartAside showAside={asideCart} setAsideCart={setAsideCart} />
         <FixedComponent />
         <Footer />
       </div>

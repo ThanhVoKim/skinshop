@@ -10,8 +10,8 @@
     -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
     &.menuin {
-      margin-left: 240px;
-      margin-right: -240px;
+      margin-left: -240px;
+      margin-right: 240px;
       overflow: hidden;
       height: 100vh;
       width: 100vw;
@@ -312,6 +312,16 @@
       height: 70px;
       line-height: 70px;
       font-size: 30px;
+    }
+  }
+
+  .aside-cart {
+    .aside-wrap {
+      width: 250px;
+    }
+
+    .orderSummary {
+      padding: 15px;
     }
   }
 }

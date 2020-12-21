@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { logout } from '../actions/userActions';
 
-const Header = ({ setBodyMenu }) => {
+const Header = ({ setBodyMenu, setAsideCart }) => {
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -108,7 +108,7 @@ const Header = ({ setBodyMenu }) => {
               </div>
             </div>
             <div className='hdr__side'>
-              {userInfo && userInfo.name && (
+              {userInfo && userInfo.name ? (
                 <div
                   style={{ display: 'inline-block', verticalAlign: 'middle' }}
                 >
@@ -132,13 +132,21 @@ const Header = ({ setBodyMenu }) => {
                     </ul>
                   </div>
                 </div>
+              ) : (
+                <Link to='/login' className='btn-icon i-circle btn-cart'>
+                  <i className='fa fa-user' aria-hidden='true'></i>
+                </Link>
               )}
-              <Link to='/cart' className='btn-icon i-circle btn-cart'>
+              <button
+                type='button'
+                onClick={(e) => setAsideCart((bool) => !bool)}
+                className='btn-icon i-circle btn-cart'
+              >
                 <i className='fa fa-shopping-cart' aria-hidden='true'></i>
                 {cartItems && cartItems.length > 0 && (
                   <small className='num-cart'>{cartItems.length}</small>
                 )}
-              </Link>
+              </button>
             </div>
           </div>
         </div>
