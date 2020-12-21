@@ -1,57 +1,55 @@
-import mongoose from 'mongoose'
-import dotenv from 'dotenv'
-import colors from 'colors'
-import users from './data/users.js'
-import products from './data/products.js'
-import User from './models/userModel.js'
-import Product from './models/productModel.js'
-import Order from './models/orderModel.js'
-import connectDB from './config/db.js'
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const colors = require('colors');
 
-dotenv.config()
+const connectDB = require('./config/db');
+const Product = require('./models/productModel');
+const User = require('./models/userModel');
+const Order = require('./models/orderModel');
+const products = require('./data/products');
+const users = require('./data/users');
 
-connectDB()
+dotenv.config();
+connectDB();
 
 const importData = async () => {
   try {
-    await Order.deleteMany()
-    await Product.deleteMany()
-    await User.deleteMany()
+    // await User.deleteMany();
+    // await Product.deleteMany();
+    // await Order.deleteMany();
 
-    const createdUsers = await User.insertMany(users)
+    // const createdUsers = await User.insertMany(users);
 
-    const adminUser = createdUsers[0]._id
+    // const adminUser = createdUsers[0]._id;
 
-    const sampleProducts = products.map((product) => {
-      return { ...product, user: adminUser }
-    })
+    // const sampleProducts = products.map((p) => ({ ...p, user: adminUser }));
 
-    await Product.insertMany(sampleProducts)
+    await Product.insertMany(products);
 
-    console.log('Data Imported!'.green.inverse)
-    process.exit()
+    console.log(`Data imported!`.green.inverse);
+    process.exit();
   } catch (error) {
-    console.error(`${error}`.red.inverse)
-    process.exit(1)
+    console.error(`${error}`.red.inverse);
+    process.exit(1);
   }
-}
+};
 
 const destroyData = async () => {
   try {
-    await Order.deleteMany()
-    await Product.deleteMany()
-    await User.deleteMany()
+    await User.deleteMany();
+    await Product.deleteMany();
+    await Order.deleteMany();
 
-    console.log('Data Destroyed!'.red.inverse)
-    process.exit()
+    console.log(`Data destroyed!`.yellow.inverse);
+    process.exit();
   } catch (error) {
-    console.error(`${error}`.red.inverse)
-    process.exit(1)
+    console.error(`${error}`.red.inverse);
+    process.exit(1);
   }
-}
+};
 
 if (process.argv[2] === '-d') {
-  destroyData()
+  destroyData();
 } else {
-  importData()
+  importData();
 }

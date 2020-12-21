@@ -1,9 +1,8 @@
 {
-  "name": "proshop",
+  "name": "skinshop",
   "version": "1.0.0",
   "description": "MERN shopping cart app",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
@@ -13,7 +12,7 @@
     "data:destroy": "node backend/seeder -d",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
-  "author": "Brad Traversy",
+  "author": "thanh",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -28,6 +27,8 @@
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
+    "eslint": "^7.15.0",
+    "eslint-plugin-react": "^7.21.5",
     "nodemon": "^2.0.4"
   }
 }
