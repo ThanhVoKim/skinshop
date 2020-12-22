@@ -30,7 +30,7 @@ const BannerSlider = () => {
     // centerPadding: '5px',
     autoplay: true,
     pauseOnHover: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 2000,
     dots: true,
     prevArrow: <SamplePrevArrow />,
     nextArrow: <SampleNextArrow />,
