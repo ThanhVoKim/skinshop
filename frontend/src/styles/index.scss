@@ -422,6 +422,23 @@ textarea.f-control {
   }
 }
 
+.btn-cart {
+  position: relative;
+}
+
+.num-cart {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  font-size: 10px;
+  background-color: #e92c2b;
+  color: white;
+  border-radius: 3rem;
+  line-height: 1;
+  padding: 2px 4px;
+  font-weight: 500;
+}
+
 .d-flex {
   display: flex;
 
