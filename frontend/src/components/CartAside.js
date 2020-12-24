@@ -2,11 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  removeFromCart,
-  saveCheckoutInfos,
-  updateCartItems,
-} from '../actions/cartActions';
+import { removeFromCart, saveCheckoutInfos } from '../actions/cartActions';
 
 const CartAside = ({ showAside, setAsideCart }) => {
   const dispatch = useDispatch();

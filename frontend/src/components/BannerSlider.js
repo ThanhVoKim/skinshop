@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 
@@ -21,6 +21,23 @@ const SamplePrevArrow = (props) => {
 };
 
 const BannerSlider = () => {
+  const [swiped, setSwiped] = useState(false);
+
+  const handleSwiped = useCallback(() => {
+    setSwiped(true);
+  }, [setSwiped]);
+
+  const handleOnItemClick = useCallback(
+    (e) => {
+      if (swiped) {
+        e.stopPropagation();
+        e.preventDefault();
+        setSwiped(false);
+      }
+    },
+    [swiped]
+  );
+
   const settings = {
     infinite: true,
     speed: 700,
@@ -28,9 +45,10 @@ const BannerSlider = () => {
     slidesToScroll: 1,
     rows: 1,
     // centerPadding: '5px',
-    autoplay: true,
+    //autoplay: true,
     pauseOnHover: false,
     autoplaySpeed: 2000,
+    onSwipe: handleSwiped,
     dots: true,
     prevArrow: <SamplePrevArrow />,
     nextArrow: <SampleNextArrow />,
@@ -40,7 +58,12 @@ const BannerSlider = () => {
     <>
       <div className='banner'>
         <Slider {...settings} className='slider-css'>
-          <Link draggable={false} to='/products' className='banner-slider-item'>
+          <Link
+            draggable={false}
+            to='/products'
+            className='banner-slider-item'
+            onClick={handleOnItemClick}
+          >
             <div className='bg-wrap'>
               <div
                 className='slider-bg'
@@ -62,7 +85,12 @@ const BannerSlider = () => {
               </div>
             </div>
           </Link>
-          <Link draggable={false} to='/products' className='banner-slider-item'>
+          <Link
+            draggable={false}
+            to='/products'
+            className='banner-slider-item'
+            onClick={handleOnItemClick}
+          >
             <div className='bg-wrap'>
               <div
                 className='slider-bg'
@@ -73,7 +101,12 @@ const BannerSlider = () => {
               ></div>
             </div>
           </Link>
-          <Link draggable={false} to='/products' className='banner-slider-item'>
+          <Link
+            draggable={false}
+            to='/products'
+            className='banner-slider-item'
+            onClick={handleOnItemClick}
+          >
             <div className='bg-wrap'>
               <div
                 className='slider-bg'
